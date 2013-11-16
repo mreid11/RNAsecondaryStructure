@@ -62,7 +62,7 @@ public class AlignPathway {
 			}
 			int[][] distance=makeDistanceMatrix(this.firstPath, this.secondPath);
 			System.out.println("Score: "+distance[first.length-1][second.length-1]);
-			printDistanceMatrix(this.firstPath, this.secondPath, distance);
+			//printDistanceMatrix(this.firstPath, this.secondPath, distance);
 			ArrayList<ArrayList<String>> matching=getPath(this.firstPath, this.secondPath, distance);
 			for(int i=0; i<matching.get(0).size(); i++){
 				System.out.print(matching.get(0).get(i)+" ");
