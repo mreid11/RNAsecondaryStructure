@@ -6,32 +6,36 @@ import java.util.Scanner;
 
 public class TwoPathwaysAlign {
 	public static void main(String[] args) throws IOException{
-		Scanner in=new Scanner(new File("output.txt"));
-		Scanner in2=new Scanner(new File("output2.txt"));
+		Scanner in=new Scanner(new File("out.txt"));
+		Scanner in2=new Scanner(new File("out2.txt"));
 		ArrayList<String> list=new ArrayList<String>();
 		String line="";
 		String[] first, second;
-		int limit=1000;
+		int limit=10;
 		int i=0;
-		while(in.hasNext() && i<=1000){
+		while(in.hasNext() && i<=limit){
 			line=in.next();
-			if(line.equals("O")) break;
+			//if(line.equals("O")) break;
 			list.add(line);
-			in.next();
-			in.next();
+			//in.next();
+			//in.next();
+			i++;
 		}
 		first=new String[list.size()];
 		for(int j=0; j<list.size(); j++){
 			first[j]=list.get(j);
+//			System.out.println(first[j]);
 		}
+//		System.out.print("\n\n\n\n\n\n\n");
 		i=0;
 		list=new ArrayList<String>();
-		while(in2.hasNext() && i<=1000){
+		while(in2.hasNext() && i<=limit){
 			line=in2.next();
-			if(line.equals("O")) break;
+			//if(line.equals("O")) break;
 			list.add(line);
-			in2.next();
-			in2.next();
+			//in2.next();
+			//in2.next();
+			i++;
 		}
 		second=new String[list.size()];
 		for(int j=0; j<list.size(); j++){

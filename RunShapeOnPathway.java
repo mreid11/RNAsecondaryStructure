@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class RunShapeOnPathway {
 	public static void main(String[] args) throws IOException{
-		File file=new File("output.txt");
-		File output=new File("out.txt");
+		File file=new File(args[1]);
+		File output=new File(args[2]);
 		output.delete();
 		Scanner in=new Scanner(file);
 		String line=in.next();

@@ -1,15 +1,21 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 
 public class AlignPathway {
 	String[] firstPath;
 	String[] secondPath;
-	public AlignPathway(String[] first, String[] second){
+	public AlignPathway(String[] first, String[] second) throws IOException{
 		this.firstPath=first;
 		this.secondPath=second;
 		align(firstPath, secondPath);
 	}
-	public void align(String[] first, String[] second){
+	public void align(String[] first, String[] second) throws IOException{
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("FinalAlignment.txt", true)));
 		if(first.length==0 || second.length==0){
 			//Make sure it is at least 1 so that you can put empty string
 			String[][] matching=new String[2][Math.max(1, Math.max(first.length, second.length))];
@@ -20,7 +26,7 @@ public class AlignPathway {
 			if(first.length==0 && second.length==0){
 				matching[0][0]="";
 				matching[1][0]="";
-				System.out.println("Score: 0");
+				out.println("Score: 0");
 			}
 			else if(first.length==0){
 				matching[0][0]="";
@@ -28,7 +34,7 @@ public class AlignPathway {
 				for(int i=0; i<second.length; i++){
 					matching[0][i]="*"+matching[0][i];
 				}
-				System.out.println("Score: " + second.length);
+				out.println("Score: " + second.length);
 			}
 			else{
 				matching[0]=first;
@@ -36,16 +42,16 @@ public class AlignPathway {
 				for(int i=0; i<first.length; i++){
 					matching[1][i]="*"+matching[1][i];
 				}
-				System.out.println("Score: "+first.length);
+				out.println("Score: "+first.length);
 			}
 			for(int i=0; i<matching[0].length;i++){
-				System.out.print(matching[0][i]+" ");
+				out.print(matching[0][i]+" ");
 			}
-			System.out.println();
+			out.println();
 			for(int i=0; i<matching[0].length;i++){
-				System.out.print(matching[1][i]+" ");
+				out.print(matching[1][i]+" ");
 			}
-
+			
 		}
 		
 		//DOESN'T DEAL WITH EMPTY STRINGS
@@ -61,19 +67,20 @@ public class AlignPathway {
 				this.secondPath[i+1]=second[i];
 			}
 			int[][] distance=makeDistanceMatrix(this.firstPath, this.secondPath);
-			System.out.println("Score: "+distance[first.length-1][second.length-1]);
+			out.println("Score: "+distance[first.length-1][second.length-1]);
 			//printDistanceMatrix(this.firstPath, this.secondPath, distance);
 			ArrayList<ArrayList<String>> matching=getPath(this.firstPath, this.secondPath, distance);
 			for(int i=0; i<matching.get(0).size(); i++){
-				System.out.print(matching.get(0).get(i)+" ");
+				out.print(matching.get(0).get(i)+" ");
 			}
-			System.out.println();
+			out.println();
 			for(int i=0; i<matching.get(1).size(); i++){
-				System.out.print(matching.get(1).get(i)+" ");
+				out.print(matching.get(1).get(i)+" ");
 			}
 			//System.out.println(matching[0]);
 			//System.out.println(matching[1]);
 		}
+		out.close();
 	}
 
 	private static ArrayList<ArrayList<String>> getPath(String first[], String second[], int[][] distance){
